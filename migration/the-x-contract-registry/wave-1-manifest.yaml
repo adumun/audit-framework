@@ -1,0 +1,59 @@
+migration_id: MIG-TXCR-AUD-001
+status: IN_PROGRESS
+source_repository: cmartinezs/the-x-contract-registry
+source_branch: master
+target_repository: adumun/audit-framework
+date: 2026-08-24
+principles:
+  historical_evidence_immutable: true
+  migration_does_not_rewrite_prior_audits: true
+  mechanism_is_not_semantic_authority: true
+  general_plus_domain_rules: true
+  local_validation_financial_bypass_supported: true
+items:
+  - source: standards/audit-standard.md
+    target: standards/audit-standard.md
+    action: MIGRATE_AND_ADAPT
+    successor_status: CANDIDATE
+  - source: standards/repository-audit-standard.md
+    target: standards/domains/repository.md
+    action: MIGRATE_AND_ADAPT
+    successor_status: CANDIDATE
+  - source: schemas/audit-record.schema.json
+    target: schemas/repository-audit-record.v0.2.schema.json
+    action: MIGRATE_WITH_NAMESPACE_UPDATE
+    successor_status: CANDIDATE
+  - source: schemas/audit-record-v0.1.schema.json
+    target: schemas/legacy/repository-audit-record.v0.1.schema.json
+    action: PRESERVE_FOR_HISTORICAL_COMPATIBILITY
+  - source: schemas/audits-registry.schema.json
+    target: schemas/audit-registry.schema.json
+    action: NEXT_WAVE
+  - source: registry/audits.yaml
+    target: registry/audits.yaml
+    action: NEXT_WAVE_PRESERVE_IDS
+  - source: audits/_template.yaml
+    target: templates/audit-record.yaml
+    action: NEXT_WAVE
+  - source: audits/domains/**
+    target: domains/**
+    action: NEXT_WAVE
+  - source: audits/mechanisms/**
+    target: mechanisms/**
+    action: NEXT_WAVE_PRESERVE_VERSIONS
+  - source: audits/AUD-*.yaml
+    target: evidence/historical/**
+    action: PRESERVE_IMMUTABLY_IN_LATER_WAVE
+  - source: audits/cmartinezs--the-x-contract-registry.yaml
+    target: evidence/historical/**
+    action: PRESERVE_IMMUTABLY_IN_LATER_WAVE
+  - source: audits/pages-publication-retroactive-audit-plan.md
+    target: campaigns/repository/pages-publication.md
+    action: NEXT_WAVE
+cutover_gate:
+  - general audit standard successor accepted
+  - repository domain successor accepted
+  - schemas validate historical/current records as intended
+  - mechanisms and domain profiles migrated with version lineage
+  - audit registry migrated without ID collisions
+  - historical audit evidence preserved byte-for-byte or with cryptographic/provenance equivalence
