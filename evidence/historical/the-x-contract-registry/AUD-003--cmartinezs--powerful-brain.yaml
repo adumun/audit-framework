@@ -1,0 +1,384 @@
+auditVersion: 0.2.0
+auditId: AUD-003
+repository: cmartinezs/powerful-brain
+auditedAt: '2026-08-23'
+auditor: ChatGPT
+status: COMPLETED
+confidence: HIGH
+
+snapshot:
+  defaultBranch: master
+  commit: d8080796f1d9f65bdaf47ae83218af70a4ffb266
+  evidenceClassificationVocabulary:
+    - CONFIRMED
+    - EVIDENCED
+    - INFERRED
+    - PROVISIONAL
+    - UNKNOWN
+
+identity:
+  visibility: PRIVATE
+  defaultBranch: master
+  repositoryStatus: ACTIVE
+  primaryClass: GOVERNANCE
+  secondaryRoles:
+    - PORTFOLIO_KNOWLEDGE_REGISTRY
+    - TRANSVERSAL_CONTRACT_AUTHORITY
+    - CAPABILITY_SEMANTICS_REGISTRY
+    - WORK_OS_SEMANTICS_AUTHORITY
+  boundedContext: >-
+    Canonical portfolio knowledge, source-precedence governance, project/capability/relationship
+    registry, and transversal Work OS integration semantics for the portfolio.
+  explicitlyOutOfScope:
+    - replacing project or product domain state
+    - replacing native issues, calendars, releases, tasks or detailed execution records
+    - becoming a second dashboard or Project Pulse read model
+    - copying credentials, secrets or sensitive operational payloads
+    - implementing generic runtime/platform mechanics merely because contracts exist
+
+applicableStandards:
+  - RS-CORE
+  - RS-GOV
+  - RS-CONTRACT
+  - RS-CAPABILITY
+
+standardsApplicability:
+  - standard: RS-CORE
+    applicability: REQUIRED
+    evidenceStatus: CONFIRMED
+    rationale: Powerful Brain is an active The X governance repository with portfolio-wide authority.
+  - standard: RS-GOV
+    applicability: APPLICABLE
+    evidenceStatus: CONFIRMED
+    rationale: It owns portfolio governance, authority, source precedence, privacy and lifecycle semantics.
+  - standard: RS-CONTRACT
+    applicability: APPLICABLE
+    evidenceStatus: CONFIRMED
+    rationale: It publishes machine-consumed transversal contracts, JSON Schemas and YAML projections.
+  - standard: RS-CAPABILITY
+    applicability: APPLICABLE
+    evidenceStatus: CONFIRMED
+    rationale: It owns reusable capability semantics, capability registry and producer/consumer policy for the portfolio.
+
+maturity:
+  recommendedLevel: R2
+  rationale: >-
+    Powerful Brain is strongly discoverable and substantially machine-readable, with versioned YAML registries,
+    explicit governance semantics and CR-1 JSON Schemas. It does not yet have deterministic repository-wide
+    validation, fixtures/compatibility enforcement or CI, and master is unprotected; therefore R3 VALIDATED
+    is not yet evidenced.
+  perStandard:
+    RS-CORE: R2
+    RS-GOV: R2
+    RS-CONTRACT: R2
+    RS-CAPABILITY: R2
+
+conformance:
+  RS-CORE:
+    - requirement: identity_and_purpose
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:README.md
+    - requirement: bounded_context_and_non_ownership
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:README.md
+        - type: file
+          ref: cmartinezs/powerful-brain:AGENTS.md
+    - requirement: source_of_truth_boundary
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+    - requirement: README_baseline
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:README.md
+    - requirement: agent_instructions
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:AGENTS.md
+    - requirement: configuration_and_secrets
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+        - type: file
+          ref: cmartinezs/powerful-brain:AGENTS.md
+    - requirement: standard_adoption_declaration
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: registry
+          ref: registry/repositories.yaml
+      note: Applicable standards are declared in the Contract Registry but not yet as a local machine-readable adoption artifact in Powerful Brain.
+    - requirement: validation_entry_point
+      result: FAIL
+      evidenceStatus: CONFIRMED
+      evidence:
+        - type: github_tree
+          ref: cmartinezs/powerful-brain:.github/workflows absent
+        - type: github_tree
+          ref: cmartinezs/powerful-brain:scripts absent
+      note: No deterministic root validation command or CI gate is present.
+    - requirement: change_control
+      result: FAIL
+      evidenceStatus: CONFIRMED
+      evidence:
+        - type: github_metadata
+          ref: master protected=false; required_status_checks=off
+      note: Canonical master remains directly writable without required validation.
+
+  RS-GOV:
+    - requirement: explicit_authority_and_provenance
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+        - type: file
+          ref: cmartinezs/powerful-brain:data/projects.yaml
+    - requirement: source_precedence
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+    - requirement: privacy_classification_and_minimization
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+        - type: file
+          ref: cmartinezs/powerful-brain:data/projects.yaml
+    - requirement: contradictions_preserved_until_resolved
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:GOVERNANCE.md
+    - requirement: generated_views_non_authoritative
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:README.md
+    - requirement: governance_schema_versioning
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:data/projects.yaml
+      note: Machine registries carry schema_version/observation metadata, but the registry family lacks deterministic schema validation and migration enforcement.
+
+  RS-CONTRACT:
+    - requirement: one_semantic_authority_per_contract
+      result: PASS
+      evidenceStatus: CONFIRMED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+        - type: registry
+          ref: registry/contracts.yaml
+    - requirement: stable_contract_identity
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+    - requirement: machine_readable_contracts
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: directory
+          ref: cmartinezs/powerful-brain:schema/
+      note: CR-1 has JSON Schemas for WorkItem, CapacityBudget, Commitment and ExecutionRecord; other declared core contracts remain semantic/proposed definitions only.
+    - requirement: compatibility_policy
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:schema/README.md
+      note: Design rules exist, but no explicit contract compatibility/deprecation/migration policy is enforced for external consumers.
+    - requirement: fixtures_examples
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+      note: Documentation contains examples, but there are no validated fixtures bound to schemas.
+    - requirement: deterministic_validation
+      result: FAIL
+      evidenceStatus: CONFIRMED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:schema/README.md
+      note: The schema README explicitly states deterministic validation is future work.
+    - requirement: producer_consumer_registry
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:data/capabilities.yaml
+        - type: file
+          ref: cmartinezs/powerful-brain:data/relationships.yaml
+    - requirement: generated_implementations_do_not_replace_authority
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:README.md
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+
+  RS-CAPABILITY:
+    - requirement: stable_capability_identity
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:data/capabilities.yaml
+    - requirement: capability_maturity_separate_from_lifecycle
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+    - requirement: producer_and_consumers_explicit
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:data/capabilities.yaml
+        - type: file
+          ref: cmartinezs/powerful-brain:data/relationships.yaml
+    - requirement: extraction_rationale
+      result: PASS
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:TRANSVERSAL-CONTRACTS.md
+      note: The project-local-until-reuse-is-earned rule is explicit.
+    - requirement: usage_evidence_before_maturity
+      result: PARTIAL
+      evidenceStatus: EVIDENCED
+      evidence:
+        - type: file
+          ref: cmartinezs/powerful-brain:CAPABILITY-ROADMAP.md
+      note: Policy is explicit, but capability maturity evidence is not yet deterministically validated against producer/consumer data.
+
+strengths:
+  - Authority and source-precedence semantics are explicit and unusually strong.
+  - Privacy minimization and secret-exclusion boundaries are first-class governance rules.
+  - The repository clearly separates canonical semantics from Project Pulse/read-model ownership.
+  - Contradictions and stale evidence are preserved instead of silently reconciled.
+  - AGENTS.md is a strong tool-neutral operator contract with bounded autonomy and update discipline.
+  - Machine-readable project, classification, capability and relationship registries already exist.
+  - CR-1 includes real JSON Schemas rather than prose-only contracts.
+  - Capability promotion explicitly requires real reuse/evidence instead of speculative platform extraction.
+  - Priority, capacity, commitment and execution semantics are cleanly separated.
+
+findings:
+  - id: FIND-AUD003-001
+    standard: RS-CONTRACT
+    requirement: deterministic_validation
+    severity: HIGH
+    priority: P0_NOW
+    summary: Canonical YAML registries and JSON Schemas are not validated by a deterministic root command or CI workflow.
+    evidenceStatus: CONFIRMED
+    recommendation: Add schema/registry validation, referential-integrity checks, fixtures and a required CI check before claiming R3.
+  - id: FIND-AUD003-002
+    standard: RS-CORE
+    requirement: change_control
+    severity: HIGH
+    priority: P0_NOW
+    summary: The canonical portfolio authority is stored on an unprotected master branch with no required status checks.
+    evidenceStatus: CONFIRMED
+    recommendation: Protect master and require pull requests plus the deterministic validation check.
+  - id: FIND-AUD003-003
+    standard: RS-CONTRACT
+    requirement: contract_coverage
+    severity: MEDIUM
+    priority: P1_NEXT
+    summary: Eight core transversal contracts are declared, while only the four CR-1 contracts currently have JSON Schemas.
+    evidenceStatus: EVIDENCED
+    recommendation: Stabilize and schema only contracts that have real consumers; explicitly mark the rest as semantic/provisional until promoted.
+  - id: FIND-AUD003-004
+    standard: RS-CONTRACT
+    requirement: compatibility_policy
+    severity: MEDIUM
+    priority: P1_NEXT
+    summary: Contract design rules exist but compatibility, migration and deprecation behavior is not yet operationalized for consumers.
+    evidenceStatus: EVIDENCED
+    recommendation: Define version/compatibility semantics and breaking-change policy before more consumers pin these contracts.
+  - id: FIND-AUD003-005
+    standard: RS-GOV
+    requirement: registry_validation
+    severity: MEDIUM
+    priority: P1_NEXT
+    summary: Canonical data registries carry schema_version and observation metadata but have no machine-enforced schemas or cross-file integrity checks.
+    evidenceStatus: EVIDENCED
+    recommendation: Add schemas and referential checks for projects, relationships, capabilities, classification, knowledge-system and human-actions registries.
+  - id: FIND-AUD003-006
+    standard: RS-CORE
+    requirement: standard_adoption_declaration
+    severity: LOW
+    priority: P2_WHEN_USEFUL
+    summary: Repository-standard adoption is currently declared externally in the Contract Registry, not locally in Powerful Brain.
+    evidenceStatus: EVIDENCED
+    recommendation: Add a minimal local applicability/adoption artifact when remediation introduces validation so automation does not rely on external inference alone.
+
+standardFeedback:
+  - type: REQUIREMENT_CLARIFICATION
+    id: STDFEEDBACK-AUD003-001
+    evidenceStatus: EVIDENCED
+    sourcePattern: Semantically mature contract authorities can still be only R2 when deterministic consumer validation is absent.
+    proposedStandard: Preserve the distinction between semantic design maturity and repository standardization maturity; do not let strong documentation substitute for R3 validation evidence.
+
+recommendedActions:
+  - priority: P0_NOW
+    action: Add deterministic validation for canonical data registries and CR-1 schemas, including referential integrity and validated fixtures.
+    rationale: This is the primary missing control between current R2 and R3.
+  - priority: P0_NOW
+    action: Protect master and require the validation check before merge.
+    rationale: Powerful Brain has portfolio-wide authority impact.
+  - priority: P1_NEXT
+    action: Define explicit contract compatibility/deprecation rules and mark non-CR-1 contracts as provisional until real consumers justify schema promotion.
+    rationale: Prevent prose contracts from being mistaken for stable consumer contracts.
+  - priority: P1_NEXT
+    action: Add machine schemas/integrity checks for data/*.yaml registries.
+    rationale: Protect portfolio identity, capability and relationship truth from silent structural drift.
+
+outcomes:
+  - CONFORMING_WITH_GAPS
+
+readinessDecision:
+  answer: YES_WITH_CONDITIONS
+  rationale: >-
+    Powerful Brain is coherent enough to remain the canonical portfolio knowledge and transversal-contract authority.
+    Its authority, privacy, bounded-context and capability semantics are strong. However, it should not be treated
+    as an R3 validated contract/governance implementation until repository-wide deterministic validation and
+    protected-branch enforcement exist.
+  blockingConditionsBeforeMassRollout:
+    - Add deterministic schema and cross-file validation for canonical registries and CR-1 contracts.
+    - Protect master and require successful validation before merge.
+  conditionsAllowedDuringPilotAudits:
+    - Expand schema coverage only when contracts gain real consumers.
+    - Define compatibility/deprecation policy before external consumers pin contract versions.
+    - Add local standard-adoption metadata during remediation when useful.
+
+notes:
+  - This is audit #002 in the operational queue; AUD-003 is used as the globally unique auditId because AUD-002 is already the Contract Registry re-audit.
+  - No remediation was performed in cmartinezs/powerful-brain.
+  - The audit sampled current repository metadata plus README.md, GOVERNANCE.md, AGENTS.md, TRANSVERSAL-CONTRACTS.md, schema/ and data/projects.yaml.
