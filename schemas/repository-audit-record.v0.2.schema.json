@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.adumun.org/audit/repository-audit-record.v0.2.schema.json",
+  "title": "ADÜMÜN Repository Audit Record",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["auditVersion", "auditId", "repository", "auditedAt", "auditor", "status", "confidence", "snapshot", "identity", "applicableStandards", "standardsApplicability", "maturity", "conformance", "findings", "standardFeedback", "recommendedActions", "outcomes", "readinessDecision"],
+  "properties": {
+    "auditVersion": {"const": "0.2.0"},
+    "auditId": {"type": "string", "pattern": "^AUD-[0-9]{3,}$"},
+    "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+    "auditedAt": {"type": "string", "format": "date"},
+    "auditor": {"type": "string", "minLength": 1},
+    "status": {"enum": ["DRAFT", "IN_PROGRESS", "COMPLETED", "SUPERSEDED"]},
+    "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"]},
+    "snapshot": {
+      "type": "object",
+      "required": ["defaultBranch", "commit", "evidenceClassificationVocabulary"],
+      "properties": {
+        "defaultBranch": {"type": "string", "minLength": 1},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "evidenceClassificationVocabulary": {"type": "array", "items": {"enum": ["CONFIRMED", "EVIDENCED", "INFERRED", "PROVISIONAL", "UNKNOWN"]}, "uniqueItems": true}
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": ["visibility", "defaultBranch", "repositoryStatus", "primaryClass", "secondaryRoles", "boundedContext", "explicitlyOutOfScope"],
+      "properties": {
+        "visibility": {"enum": ["PUBLIC", "PRIVATE", "INTERNAL", "UNKNOWN"]},
+        "defaultBranch": {"type": "string"},
+        "repositoryStatus": {"type": "string"},
+        "primaryClass": {"type": "string"},
+        "secondaryRoles": {"type": "array", "items": {"type": "string"}},
+        "boundedContext": {"type": "string", "minLength": 1},
+        "explicitlyOutOfScope": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "applicableStandards": {"type": "array", "items": {"type": "string", "pattern": "^RS-[A-Z0-9-]+$"}, "uniqueItems": true},
+    "standardsApplicability": {"type": "array", "items": {"$ref": "#/$defs/applicability"}},
+    "maturity": {
+      "type": "object",
+      "required": ["recommendedLevel", "rationale", "perStandard"],
+      "properties": {
+        "recommendedLevel": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5"]},
+        "rationale": {"type": "string"},
+        "perStandard": {"type": "object", "additionalProperties": {"enum": ["R0", "R1", "R2", "R3", "R4", "R5"]}}
+      }
+    },
+    "conformance": {"type": "object", "additionalProperties": {"type": "array", "items": {"$ref": "#/$defs/conformanceRequirement"}}},
+    "findings": {"type": "array", "items": {"type": "object", "required": ["id", "severity", "priority", "summary", "evidenceStatus", "recommendation"]}},
+    "standardFeedback": {"type": "array", "items": {"type": "object", "required": ["type", "id", "evidenceStatus"]}},
+    "recommendedActions": {"type": "array", "items": {"type": "object", "required": ["priority", "action", "rationale"]}},
+    "outcomes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "readinessDecision": {
+      "type": "object",
+      "required": ["answer", "rationale", "blockingConditionsBeforeMassRollout"],
+      "properties": {
+        "answer": {"enum": ["YES", "YES_WITH_CONDITIONS", "NO"]},
+        "rationale": {"type": "string"},
+        "blockingConditionsBeforeMassRollout": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "evidenceStatus": {"enum": ["CONFIRMED", "EVIDENCED", "INFERRED", "PROVISIONAL", "UNKNOWN"]},
+    "applicability": {
+      "type": "object",
+      "required": ["standard", "applicability", "evidenceStatus", "rationale"],
+      "properties": {
+        "standard": {"type": "string", "pattern": "^RS-[A-Z0-9-]+$"},
+        "applicability": {"enum": ["REQUIRED", "APPLICABLE", "RECOMMENDED", "NOT_APPLICABLE", "DEFERRED"]},
+        "evidenceStatus": {"$ref": "#/$defs/evidenceStatus"},
+        "rationale": {"type": "string"}
+      }
+    },
+    "conformanceRequirement": {
+      "type": "object",
+      "required": ["requirement", "result", "evidenceStatus"],
+      "properties": {
+        "requirement": {"type": "string", "minLength": 1},
+        "result": {"enum": ["PASS", "PARTIAL", "FAIL", "NOT_APPLICABLE", "UNKNOWN"]},
+        "evidenceStatus": {"$ref": "#/$defs/evidenceStatus"},
+        "evidence": {"type": "array", "items": {"type": "object", "required": ["type", "ref"]}},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}
