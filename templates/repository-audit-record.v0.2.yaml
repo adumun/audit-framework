@@ -1,7 +1,7 @@
 auditVersion: 0.2.0
 auditId: AUD-000
 repository: owner/name
-auditedAt: 1970-01-01
+auditedAt: "1970-01-01"
 auditor: UNKNOWN
 status: DRAFT
 confidence: UNKNOWN
