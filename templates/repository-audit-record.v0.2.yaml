@@ -1,0 +1,84 @@
+auditVersion: 0.2.0
+auditId: AUD-000
+repository: owner/name
+auditedAt: 1970-01-01
+auditor: UNKNOWN
+status: DRAFT
+confidence: UNKNOWN
+
+snapshot:
+  defaultBranch: UNKNOWN
+  commit: "0000000000000000000000000000000000000000"
+  evidenceClassificationVocabulary:
+    - CONFIRMED
+    - EVIDENCED
+    - INFERRED
+    - PROVISIONAL
+    - UNKNOWN
+
+identity:
+  visibility: UNKNOWN
+  defaultBranch: UNKNOWN
+  repositoryStatus: UNKNOWN
+  primaryClass: UNKNOWN
+  secondaryRoles: []
+  predecessorRepositories: []
+  successorRepositories: []
+  boundedContext: UNKNOWN
+  ownerAuthority:
+    value: UNKNOWN
+    evidenceStatus: UNKNOWN
+    basis: UNKNOWN
+  declaredConsumers: []
+  authorityDependencies: []
+  explicitlyOutOfScope: []
+
+applicableStandards:
+  - RS-CORE
+
+standardsApplicability:
+  - standard: RS-CORE
+    applicability: REQUIRED
+    evidenceStatus: UNKNOWN
+    rationale: To be established by audit evidence.
+
+maturity:
+  recommendedLevel: R0
+  rationale: To be established by audit evidence.
+  perStandard:
+    RS-CORE: R0
+
+conformance:
+  RS-CORE:
+    - requirement: identity_and_purpose
+      result: UNKNOWN
+      evidenceStatus: UNKNOWN
+      evidence: []
+      note: Replace with evidence-backed assessment.
+
+strengths: []
+findings: []
+contracts:
+  provides: []
+  consumes: []
+  projections: []
+  authorityConflicts: []
+  authorityRisks: []
+securityAndOperations:
+  findings: []
+lineageAndDeprecation:
+  findings: []
+standardFeedback: []
+recommendedActions: []
+outcomes: []
+
+readinessDecision:
+  answer: "NO"
+  rationale: Draft template has no evidence and is not a readiness decision.
+  blockingConditionsBeforeMassRollout:
+    - Complete the audit with evidence.
+  conditionsAllowedDuringPilotAudits: []
+
+notes:
+  - Replace sentinel/template values before completing an audit.
+  - Template predecessor: cmartinezs/the-x-contract-registry/audits/_template.yaml (blob d29db5ff525d759082bf42c34ecfdd23ebd87de0).
