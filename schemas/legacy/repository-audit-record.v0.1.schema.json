@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://the-x.local/schemas/audit-record-v0.1.schema.json",
+  "title": "The X Repository Audit Record v0.1 (historical)",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["auditVersion", "auditId", "repository", "auditedAt", "auditor", "status", "confidence", "identity", "applicableStandards", "maturity", "findings", "outcomes"],
+  "properties": {
+    "auditVersion": {"const": "0.1.0"},
+    "auditId": {"type": "string", "pattern": "^AUD-[0-9]{3,}$"},
+    "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+    "auditedAt": {"type": "string", "format": "date"},
+    "status": {"type": "string"},
+    "confidence": {"enum": ["HIGH", "MEDIUM", "LOW", "UNKNOWN"]},
+    "applicableStandards": {"type": "array", "items": {"type": "string", "pattern": "^RS-[A-Z0-9-]+$"}, "uniqueItems": true},
+    "maturity": {"type": "object"},
+    "findings": {"type": "array"},
+    "outcomes": {"type": "array"}
+  }
+}

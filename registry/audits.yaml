@@ -1,0 +1,210 @@
+auditProgramVersion: 0.2.0
+schemaVersion: 0.2.0
+status: ACTIVE_PILOT
+mode: ONE_REPOSITORY_AT_A_TIME
+
+queueStatusVocabulary:
+  - QUEUED
+  - IN_PROGRESS
+  - COMPLETED
+  - SUPERSEDED
+  - CANCELLED
+
+readinessDecisionVocabulary:
+  - "YES"
+  - YES_WITH_CONDITIONS
+  - "NO"
+
+principles:
+  - determine_applicability_before_conformance
+  - preserve_good_local_patterns
+  - separate_audit_from_remediation
+  - no_mass_migration
+  - evidence_required_for_nontrivial_findings
+  - lifecycle_and_repository_maturity_are_independent
+  - historical_evidence_is_immutable
+
+queue:
+  - order: 1
+    auditId: AUD-001
+    repository: cmartinezs/the-x-contract-registry
+    status: SUPERSEDED
+    auditedAt: '2026-08-22'
+    artifact: evidence/historical/the-x-contract-registry/AUD-001--cmartinezs--the-x-contract-registry.yaml
+    supersedesAuditId: null
+    supersededByAuditId: AUD-002
+    result:
+      maturity: R2
+      outcomes:
+        - CONFORMING_WITH_GAPS
+        - STANDARD_CANDIDATE
+      readinessDecision: YES_WITH_CONDITIONS
+      confidence: HIGH
+    remediation:
+      sourceAuditId: AUD-001
+      implementationCommit: 805b8fb8529d56f5fd4ac2a84610e892adb82c13
+      status: VALIDATED
+      targetMaturityAfterReaudit: R3
+      implementedControls:
+        - audit_schema_v0_2
+        - registry_json_schemas
+        - deterministic_cross_file_validation
+        - github_actions_validation
+        - canonical_standard_alias_model
+        - typed_relationship_endpoints
+        - stable_relationship_ids
+        - contract_version_and_compatibility_policy
+        - authority_claim_provenance
+        - normalized_audit_registry_lifecycle
+        - tool_neutral_agent_instructions
+        - repository_change_control_policy
+        - changelog_and_registry_evolution_policy
+      validation:
+        method: PULL_REQUEST_CI
+        workflow: Validate registry
+        job: validate-registry
+        status: PASSED
+        evidenceRef: github:cmartinezs/the-x-contract-registry#5
+      providerEnforcement:
+        masterBranchProtection: ENABLED
+        issueRef: github:cmartinezs/the-x-contract-registry#3
+        issueStatus: CLOSED
+      note: AUD-001 remains immutable historical evidence and is superseded by AUD-002.
+    rationale: Dogfood the standard owner first and verify that the audit model is usable before applying it elsewhere.
+
+  - order: 2
+    auditId: AUD-003
+    repository: cmartinezs/powerful-brain
+    status: COMPLETED
+    auditedAt: '2026-08-23'
+    artifact: evidence/historical/the-x-contract-registry/AUD-003--cmartinezs--powerful-brain.yaml
+    supersedesAuditId: null
+    result:
+      maturity: R2
+      outcomes:
+        - CONFORMING_WITH_GAPS
+      readinessDecision: YES_WITH_CONDITIONS
+      confidence: HIGH
+    remediation:
+      sourceAuditId: AUD-003
+      implementationCommit: 7011e85bf6f17be269a042c6211955f45936ee94
+      status: IMPLEMENTED
+      targetMaturityAfterReaudit: R3
+      implementedControls:
+        - deterministic_repository_validation
+        - github_actions_validation
+        - cr1_validated_fixtures
+        - local_machine_readable_standard_adoption
+        - contract_compatibility_and_deprecation_policy
+        - repository_change_control_policy
+      validation:
+        method: PULL_REQUEST_CI
+        workflow: Validate repository
+        job: validate-repository
+        status: PASSED
+        evidenceRef: github:cmartinezs/powerful-brain#7
+      providerEnforcement:
+        masterBranchProtection: PENDING
+        issueRef: github:cmartinezs/powerful-brain#8
+        issueStatus: OPEN
+      note: Repository-local blockers are remediated; short re-audit should wait until provider enforcement is enabled.
+    rationale: Canonical transversal contract and portfolio semantics authority; audit confirms strong semantics with validation and change-control gaps before R3.
+
+  - order: 3
+    repository: cmartinezs/shipping-mode
+    status: QUEUED
+    rationale: Canonical tooling/runtime successor with strong validation, schema, safety, and deprecation lineage patterns.
+
+  - order: 4
+    repository: cmartinezs/initiative-control-center
+    status: QUEUED
+    rationale: Strong machine-readable governance and lifecycle projection consumer; useful governance-profile reference.
+
+  - order: 5
+    repository: cmartinezs/project-pulse
+    status: QUEUED
+    rationale: Cross-domain Work OS/read-model consumer; validates consumer-side contract standards.
+
+  - order: 6
+    repository: cmartinezs/grade-ops-ai
+    status: QUEUED
+    rationale: Rich product monorepo spanning frontend, service, AI, data, infra, design system, CI, and agent guidance.
+
+  - order: 7
+    repository: cmartinezs/agent-status-project
+    status: QUEUED
+    rationale: Provider-neutral experiment; validates experiment, AI, contract, and portability standards.
+
+  - order: 8
+    repository: cmartinezs/local-ai-image-stack
+    status: QUEUED
+    rationale: Capability implementation with reproducibility, adapters, schemas, and explicit portfolio capability identity.
+
+  - order: 9
+    repository: cmartinezs/nexus-community-ecosystem
+    status: QUEUED
+    rationale: Early lifecycle product/initiative using machine-readable governance.
+
+  - order: 10
+    repository: cmartinezs/auto-ig-posting
+    status: QUEUED
+    rationale: Mature product with retrospective governance adoption and local/cloud architecture.
+
+  - order: 11
+    repository: cmartinezs/astra-project
+    status: QUEUED
+    rationale: Creative/content repository; tests non-software and governance/content standard composition.
+
+  - order: 12
+    repository: cmartinezs/claude-planning-with-ai
+    status: QUEUED
+    rationale: Deprecated predecessor; validates legacy/deprecation/archive standard after active successor is understood.
+
+  - order: 13
+    auditId: AUD-002
+    repository: cmartinezs/the-x-contract-registry
+    status: COMPLETED
+    auditedAt: '2026-08-23'
+    artifact: evidence/historical/the-x-contract-registry/AUD-002--cmartinezs--the-x-contract-registry.yaml
+    supersedesAuditId: AUD-001
+    supersededByAuditId: null
+    result:
+      maturity: R3
+      outcomes:
+        - CONFORMING
+        - KEEP_AS_IS
+      readinessDecision: "YES"
+      confidence: HIGH
+    rationale: Short post-remediation re-audit confirms the four AUD-001 blockers are closed and the repository is ready as the validated pilot baseline.
+
+selectionAfterSeed:
+  strategy:
+    - prioritize repositories with shared contracts or many consumers
+    - then active products/capabilities
+    - then experiments and infrastructure
+    - then content/education/specialized repositories
+    - finally legacy and low-impact historical repositories
+  rule: Exact order may change when an audit reveals a blocking dependency or authority conflict.
+
+artifactPattern: evidence/historical/<source-context>/<auditId>--<owner>--<repository>.yaml
+standard: standards/domains/repository.md
+
+outcomes:
+  - CONFORMING
+  - CONFORMING_WITH_GAPS
+  - ADOPT_STANDARD
+  - RECONCILE_AUTHORITY
+  - MIGRATE
+  - DEPRECATE
+  - ARCHIVE_CANDIDATE
+  - KEEP_AS_IS
+  - STANDARD_CANDIDATE
+
+notes:
+  - Queue order is operational, not lifecycle priority.
+  - A queued audit does not imply a defect or remediation commitment.
+  - Repository changes are not automatic consequences of audit findings.
+  - Re-audits receive a new auditId and supersedesAuditId; prior audit artifacts remain immutable historical evidence.
+  - Legacy AUD-001/AUD-002/AUD-003 blobs were copied byte-for-byte and retain predecessor Git blob fingerprints.
+  - New ADÜMÜN audits should use immutable auditId-qualified artifact names.
+  - Operational audit #002 uses auditId AUD-003 because AUD-002 was already assigned to the Contract Registry re-audit.
